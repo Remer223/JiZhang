@@ -12,3 +12,4 @@ mybatis:
   type-aliases-package: org.example.accountbookserver.entity
   configuration:
     map-underscore-to-camel-case: true
+
