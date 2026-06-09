@@ -1,0 +1,25 @@
+<view class="container">
+  <!-- 1. 用户信息区域 -->
+  <view class="user-card" bindtap="goUserInfo">
+    <image src="{{avatar}}" class="avatar"></image>
+    <view class="info">
+      <text class="nickname">{{nickname || '点击设置昵称'}}</text>
+      <text class="account">{{phone || '点击设置手机号'}}</text>
+    </view>
+    <text class="arrow">></text>
+  </view>
+
+  <!-- 2. 记账提醒开关 -->
+  <view class="item">
+    <text>每日记账提醒</text>
+    <switch checked="{{remindOn}}" bindchange="switchRemind" />
+  </view>
+
+  <!-- 3. 提醒时间设置 -->
+  <view class="item" wx:if="{{remindOn}}">
+    <text>提醒时间</text>
+    <picker mode="time" value="{{remindTime}}" bindchange="setTime">
+      <view class="time">{{remindTime}}</view>
+    </picker>
+  </view>
+</view>

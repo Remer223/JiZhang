@@ -1,0 +1,274 @@
+page {
+  background: #f5f5f5;
+}
+
+.container {
+  padding: 30rpx;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* ========== 支出/收入切换 ========== */
+.type-tabs {
+  display: flex;
+  background: white;
+  border-radius: 16rpx;
+  margin-bottom: 30rpx;
+  overflow: hidden;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx;
+  font-size: 32rpx;
+  color: #666;
+  background: #f5f5f5;
+}
+
+.tab.active {
+  background: #07c160;
+  color: white;
+  font-weight: bold;
+}
+
+/* ========== 金额输入 ========== */
+.amount-area {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.yuan {
+  font-size: 48rpx;
+  color: #333;
+  margin-right: 20rpx;
+}
+
+.amount-input {
+  flex: 1;
+  font-size: 48rpx;
+  color: #333;
+}
+
+/* ========== 类型区域 ========== */
+.type-section {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx 0;
+  margin-bottom: 30rpx;
+}
+
+.type-header-row {
+  padding: 0 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.type-title {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #333;
+}
+
+/* ========== 横向滚动 ========== */
+.type-scroll {
+  width: 100%;
+  height: 220rpx;
+  white-space: nowrap;
+}
+
+.type-track {
+  height: 220rpx;
+  padding-left: 30rpx;
+  white-space: nowrap;
+}
+
+.type-item {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  border-radius: 16rpx;
+  width: 140rpx;
+  height: 160rpx;
+  margin-right: 20rpx;
+  padding-top: 28rpx;
+  box-sizing: border-box;
+  white-space: normal;
+}
+
+.type-item.active {
+  box-shadow: 0 0 0 4rpx rgba(7, 193, 96, 0.3);
+  transform: scale(1.05);
+}
+
+.type-item.custom {
+  border: 2rpx dashed rgba(255, 255, 255, 0.4);
+}
+
+.icon {
+  display: block;
+  font-size: 44rpx;
+  margin-bottom: 8rpx;
+}
+
+.name {
+  display: block;
+  font-size: 26rpx;
+  white-space: nowrap;
+}
+
+/* ========== 底部操作按钮 ========== */
+.type-actions-bottom {
+  display: flex;
+  justify-content: center;
+  gap: 30rpx;
+  margin-top: 20rpx;
+  padding: 20rpx 30rpx 0;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 16rpx 40rpx;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+}
+
+.add-btn {
+  background: #e6f7ed;
+  color: #07c160;
+}
+
+.add-btn .action-icon {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.manage-btn {
+  background: #fff1f0;
+  color: #ff4d4f;
+}
+
+/* ========== 删除确认 ========== */
+.delete-confirm {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16rpx;
+  gap: 16rpx;
+  z-index: 10;
+}
+
+.confirm-text {
+  font-size: 26rpx;
+  color: #ff4d4f;
+  padding: 10rpx 24rpx;
+  background: #fff1f0;
+  border-radius: 24rpx;
+}
+
+.cancel-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.delete-mark {
+  position: absolute;
+  top: -12rpx;
+  right: -12rpx;
+  width: 40rpx;
+  height: 40rpx;
+  background: #ff4d4f;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  z-index: 5;
+  box-shadow: 0 2rpx 8rpx rgba(255, 77, 79, 0.4);
+}
+
+/* ========== 备注 ========== */
+.remark-area {
+  background: white;
+  border-radius: 16rpx;
+  padding: 20rpx 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.submit-btn {
+  background: #07c160;
+  color: white;
+  border-radius: 16rpx;
+  font-size: 32rpx;
+}
+
+.submit-btn[disabled] {
+  background: #ccc;
+  color: #999;
+}
+
+/* ========== 弹窗 ========== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  width: 80%;
+}
+
+.form-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.form-item text {
+  font-size: 28rpx;
+  color: #333;
+  width: 200rpx;
+}
+
+.form-item input {
+  flex: 1;
+  border: 1rpx solid #ddd;
+  border-radius: 8rpx;
+  padding: 16rpx;
+  font-size: 28rpx;
+}
+
+.modal-btns {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 30rpx;
+}
+
+.modal-btns button {
+  flex: 1;
+}

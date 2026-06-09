@@ -1,0 +1,80 @@
+<view class="container">
+  <!-- 支出/收入 切换 -->
+  <view class="type-tabs">
+    <view class="tab {{currentTab === '支出' ? 'active' : ''}}" bindtap="switchType" data-type="支出">支出</view>
+    <view class="tab {{currentTab === '收入' ? 'active' : ''}}" bindtap="switchType" data-type="收入">收入</view>
+  </view>
+
+  <!-- 金额输入 -->
+  <view class="amount-area">
+    <text class="yuan">¥</text>
+    <input class="amount-input" type="digit" placeholder="0.00" value="{{amount}}" bindinput="inputAmount" maxlength="10" />
+  </view>
+
+  <!-- 类型选择区域 -->
+  <view class="type-section">
+    <view class="type-header-row">
+      <text class="type-title">{{currentTab === '支出' ? '选择消费类型' : '选择收入类型'}}</text>
+    </view>
+
+    <!-- 类型列表：scroll-view 自主处理滚动，touchend 判断点击 -->
+    <scroll-view class="type-scroll" scroll-x show-scrollbar="{{false}}"
+          bindtouchstart="onTouchStart"
+          bindtouchend="onTouchEnd">
+      <view class="type-track">
+        <view class="type-item {{currentTypeId === item.id ? 'active' : ''}} {{item.isCustom ? 'custom' : ''}}"
+              wx:for="{{typeList}}" wx:key="id"
+              style="background-color: {{item.color}}; color: {{item.color === '#ffffff' ? '#333' : '#fff'}}">
+          <text class="icon">{{item.icon}}</text>
+          <text class="name">{{item.name}}</text>
+
+          <view wx:if="{{showDeleteMode && item.isCustom && deleteConfirmId === item.id}}" class="delete-confirm" catchtap="preventClose">
+            <text class="confirm-text" catchtap="confirmDelete" data-id="{{item.id}}">确认删除</text>
+            <text class="cancel-text" catchtap="cancelDelete">取消</text>
+          </view>
+
+          <view wx:if="{{showDeleteMode && item.isCustom && deleteConfirmId !== item.id}}" class="delete-mark" catchtap="onDeleteType" data-id="{{item.id}}">✕</view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="type-actions-bottom">
+      <view class="action-btn add-btn" bindtap="openCustomModal">
+        <text class="action-icon">+</text>
+        <text>自定义</text>
+      </view>
+      <view class="action-btn manage-btn" bindtap="toggleDeleteMode">
+        <text>{{showDeleteMode ? '完成' : '管理'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="remark-area">
+    <input placeholder="添加备注（可选）" value="{{remark}}" bindinput="inputRemark" />
+  </view>
+
+  <button class="submit-btn" bindtap="submitRecord" disabled="{{!canSubmit}}">完成</button>
+
+  <!-- 自定义类型弹窗 -->
+  <view class="modal" wx:if="{{showCustomModal}}" bindtap="closeCustomModal">
+    <view class="modal-content" catchtap="preventClose">
+      <view class="form-item">
+        <text>类型名称：</text>
+        <input placeholder="如：娱乐" value="{{customName}}" bindinput="inputCustomName" />
+      </view>
+      <view class="form-item">
+        <text>图标（Emoji）：</text>
+        <input placeholder="如：🎮" value="{{customIcon}}" bindinput="inputCustomIcon" />
+      </view>
+      <view class="form-item">
+        <text>颜色：</text>
+        <input placeholder="如：#07c160" value="{{customColor}}" bindinput="inputCustomColor" />
+      </view>
+      <view class="modal-btns">
+        <button bindtap="closeCustomModal">取消</button>
+        <button type="primary" bindtap="saveCustomType">保存</button>
+      </view>
+    </view>
+  </view>
+</view>

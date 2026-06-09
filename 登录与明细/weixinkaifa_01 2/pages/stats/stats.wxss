@@ -1,0 +1,333 @@
+.container {
+  padding: 30rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 年月筛选 */
+.filter-bar {
+  display: flex;
+  justify-content: center;
+  gap: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.filter-item {
+  padding: 12rpx 30rpx;
+  background: white;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  color: #333;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+/* 头部 */
+.header {
+  text-align: center;
+  margin-bottom: 20rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #333;
+  display: block;
+}
+
+.subtitle {
+  font-size: 26rpx;
+  color: #999;
+  margin-top: 8rpx;
+  display: block;
+}
+
+/* 统计卡片 */
+.stats-card {
+  background: #fff;
+  padding: 40rpx 30rpx;
+  border-radius: 16rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.divider {
+  width: 2rpx;
+  height: 60rpx;
+  background: #f0f0f0;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #666;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.value {
+  font-size: 40rpx;
+  font-weight: bold;
+}
+
+.expense { color: #ff4d4f; }
+.income { color: #07c160; }
+
+/* 图表区域 */
+.chart-section {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 30rpx;
+  display: block;
+}
+
+/* ==================== 饼状图（CSS环形图） ==================== */
+.pie-chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pie-chart {
+  width: 300rpx;
+  height: 300rpx;
+  border-radius: 50%;
+  position: relative;
+  margin-bottom: 30rpx;
+}
+
+.pie-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180rpx;
+  height: 180rpx;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pie-total {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.pie-label {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+/* 图例 */
+.pie-legend {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20rpx;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.legend-color {
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 6rpx;
+}
+
+.legend-name {
+  font-size: 26rpx;
+  color: #333;
+}
+
+.legend-percent {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* ==================== 柱状图（CSS实现） ==================== */
+.bar-chart-container {
+  display: flex;
+  height: 400rpx;
+}
+
+.y-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-right: 20rpx;
+  height: 320rpx;
+  margin-top: 20rpx;
+}
+
+.y-label {
+  font-size: 22rpx;
+  color: #999;
+  text-align: right;
+  width: 80rpx;
+}
+
+.bar-area {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 320rpx;
+  border-left: 2rpx solid #eee;
+  border-bottom: 2rpx solid #eee;
+  padding: 20rpx 10rpx 0;
+  margin-top: 20rpx;
+}
+
+.bar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 40rpx;
+}
+
+.bar-wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4rpx;
+  height: 100%;
+  width: 100%;
+}
+
+.bar {
+  width: 14rpx;
+  border-radius: 4rpx 4rpx 0 0;
+  transition: height 0.5s ease;
+  min-height: 4rpx;
+}
+
+.income-bar {
+  background: #07c160;
+}
+
+.expense-bar {
+  background: #ff4d4f;
+}
+
+.x-label {
+  font-size: 20rpx;
+  color: #999;
+  margin-top: 10rpx;
+  transform: rotate(-45deg);
+  transform-origin: top center;
+  white-space: nowrap;
+}
+
+/* 分类列表 */
+.type-stats {
+  margin-top: 10rpx;
+}
+
+.type-item {
+  background: #fff;
+  padding: 24rpx 30rpx;
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.03);
+}
+
+.type-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.type-icon {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 32rpx;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.type-info {
+  flex: 1;
+}
+
+.type-name {
+  font-size: 30rpx;
+  color: #333;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.progress-bar {
+  height: 12rpx;
+  background: #f5f5f5;
+  border-radius: 6rpx;
+  overflow: hidden;
+  width: 200rpx;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 6rpx;
+  transition: width 0.5s ease;
+}
+
+.type-right {
+  text-align: right;
+  margin-left: 20rpx;
+}
+
+.type-amount {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 500;
+  display: block;
+}
+
+.type-percent {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 8rpx;
+  display: block;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999;
+  font-size: 28rpx;
+  background: #fff;
+  border-radius: 16rpx;
+}

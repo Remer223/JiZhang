@@ -1,0 +1,45 @@
+<view class="container">
+  <view class="header">
+    <text class="title">收支统计</text>
+    <text class="subtitle">{{currentYear}}年{{currentMonth}}月</text>
+  </view>
+  
+  <view class="stats-card">
+    <view class="stat-item">
+      <text class="label">本月总支出</text>
+      <text class="value expense">¥{{totalExpense}}</text>
+    </view>
+    <view class="divider"></view>
+    <view class="stat-item">
+      <text class="label">本月总收入</text>
+      <text class="value income">¥{{totalIncome}}</text>
+    </view>
+  </view>
+
+  <view class="type-stats">
+    <text class="sub-title">支出分类占比</text>
+    
+    <view class="type-item" wx:for="{{expenseTypeStats}}" wx:key="type">
+      <view class="type-left">
+        <view class="type-icon" style="background-color: {{item.color}}">
+          {{item.icon}}
+        </view>
+        <view class="type-info">
+          <text class="type-name">{{item.type}}</text>
+          <view class="progress-bar">
+            <view class="progress-fill" style="width: {{item.percent}}; background-color: {{item.color}}"></view>
+          </view>
+        </view>
+      </view>
+      <view class="type-right">
+        <text class="type-amount">¥{{item.amount}}</text>
+        <text class="type-percent">{{item.percent}}%</text>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view wx:if="{{expenseTypeStats.length === 0}}" class="empty-state">
+      <text>暂无支出记录</text>
+    </view>
+  </view>
+</view>
