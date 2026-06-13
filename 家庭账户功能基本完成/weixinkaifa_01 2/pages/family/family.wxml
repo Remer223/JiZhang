@@ -1,0 +1,207 @@
+<view class="container">
+  <!-- 无家庭状态 -->
+  <view wx:if="{{!hasFamily}}" class="empty-family">
+    <view class="empty-icon">🏠</view>
+    <text class="empty-title">你还没有加入家庭</text>
+    <text class="empty-desc">创建或加入一个家庭，与家人一起记账</text>
+
+    <view class="action-btns">
+      <view class="action-btn create" bindtap="openCreateModal">
+        <text class="btn-icon">➕</text>
+        <text>创建家庭</text>
+      </view>
+      <view class="action-btn join" bindtap="openJoinModal">
+        <text class="btn-icon">🔗</text>
+        <text>加入家庭</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 被拒绝状态 -->
+  <view wx:elif="{{isRejected}}" class="pending-family">
+    <view class="pending-icon">❌</view>
+    <text class="pending-title">申请已被拒绝</text>
+    <text class="pending-desc">{{family.name}} 拒绝了你的加入申请</text>
+    <view class="family-actions" style="margin-top: 60rpx;">
+      <view class="danger-btn leave" bindtap="dismissRejection">
+        <text>知道了</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 待审批状态 -->
+  <view wx:elif="{{hasFamily && !isApproved}}" class="pending-family">
+    <view class="pending-icon">⏳</view>
+    <text class="pending-title">等待审批中</text>
+    <text class="pending-desc">已申请加入 {{family.name}}</text>
+    <view class="pending-tip">对方通过后即可查看共享账单</view>
+
+    <view class="family-actions" style="margin-top: 60rpx;">
+      <view class="danger-btn leave" bindtap="openLeaveModal">
+        <text>取消申请</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 已批准，完整家庭视图 -->
+  <view wx:else class="family-info">
+    <!-- 家庭头部 -->
+    <view class="family-header">
+      <text class="family-icon">🏠</text>
+      <view class="family-detail">
+        <text class="family-name">{{family.name}}</text>
+        <text class="family-role">我的角色：{{myRole}}</text>
+        <text class="family-badge" wx:if="{{isCreator}}">创建者</text>
+      </view>
+    </view>
+
+    <!-- 成员列表 -->
+    <view class="section">
+      <text class="section-title">家庭成员（{{members.length}}人）</text>
+      <view class="member-list">
+        <view
+          wx:for="{{members}}"
+          wx:key="id"
+          class="member-item {{!item.approved ? 'pending' : ''}}">
+          <image src="{{item.avatar}}" class="member-avatar" mode="aspectFill"></image>
+          <view class="member-info">
+            <text class="member-name">{{item.nickname || '用户' + item.user_id}}</text>
+            <text class="member-role">{{item.role}}</text>
+          </view>
+          <view class="member-status">
+            <text wx:if="{{item.approved}}" class="status approved">✓ 已加入</text>
+            <text wx:else class="status pending-status">⏳ 待审批</text>
+          </view>
+          <!-- 创建者审批按钮（未批准的成员） -->
+          <view wx:if="{{isCreator && !item.approved}}" class="approve-btns">
+            <text class="approve-btn" bindtap="approveMember" data-userid="{{item.user_id}}">同意</text>
+            <text class="reject-btn" bindtap="rejectMember" data-userid="{{item.user_id}}">拒绝</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="family-actions">
+      <view wx:if="{{isCreator}}" class="danger-btn dissolve" bindtap="openDissolveModal">
+        <text>解散家庭</text>
+      </view>
+      <view wx:else class="danger-btn leave" bindtap="openLeaveModal">
+        <text>退出家庭</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ========== 创建家庭弹窗 ========== -->
+  <view wx:if="{{showCreateModal}}" class="modal" catchtap="preventClose">
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">创建家庭</text>
+        <text class="modal-close" bindtap="closeCreateModal">✕</text>
+      </view>
+      <view class="modal-body">
+        <view class="input-group">
+          <text class="input-label">家庭名称</text>
+          <input class="modal-input" placeholder="例如：温馨小家" value="{{familyName}}" bindinput="inputFamilyName" />
+        </view>
+        <view class="input-group">
+          <text class="input-label">你的角色</text>
+          <input class="modal-input" placeholder="例如：爸爸、妈妈、儿子" value="{{createRole}}" bindinput="inputCreateRole" />
+        </view>
+      </view>
+      <view class="modal-footer">
+        <view class="modal-btn confirm" bindtap="submitCreate">确认创建</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ========== 加入家庭弹窗 ========== -->
+  <view wx:if="{{showJoinModal}}" class="modal" catchtap="preventClose">
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">加入家庭</text>
+        <text class="modal-close" bindtap="closeJoinModal">✕</text>
+      </view>
+      <view class="modal-body">
+        <!-- 搜索输入框 -->
+        <view class="search-box">
+          <text class="search-icon">🔍</text>
+          <input class="search-input" placeholder="输入家庭名称搜索" value="{{searchKeyword}}" bindinput="inputSearchKeyword" />
+        </view>
+
+        <!-- 搜索结果 -->
+        <scroll-view wx:if="{{searchKeyword && familyList.length > 0}}" class="family-select-list" scroll-y style="max-height: 340rpx;">
+          <view
+            wx:for="{{familyList}}"
+            wx:key="id"
+            class="family-select-item {{selectedFamilyId === item.id ? 'selected' : ''}}"
+            bindtap="selectFamily"
+            data-id="{{item.id}}">
+            <text class="fs-name">{{item.name}}</text>
+            <text class="fs-creator">创建者：{{item.creator_nickname || '用户' + item.creator_id}}</text>
+            <view class="fs-meta">
+              <text class="fs-count">{{item.member_count || 0}}位成员</text>
+              <text class="fs-time" wx:if="{{item.created_at}}">{{item.created_at}}</text>
+            </view>
+          </view>
+        </scroll-view>
+
+        <!-- 空搜索提示 -->
+        <view wx:if="{{!searchKeyword}}" class="search-hint">
+          <text>🔍 请输入家庭名称进行搜索</text>
+        </view>
+
+        <!-- 无结果 -->
+        <view wx:if="{{searchKeyword && searchEmpty}}" class="search-hint">
+          <text>未找到匹配的家庭</text>
+        </view>
+
+        <view class="input-group">
+          <text class="input-label">你的角色</text>
+          <input class="modal-input" placeholder="例如：爸爸、妈妈、儿子" value="{{joinRole}}" bindinput="inputJoinRole" />
+        </view>
+      </view>
+      <view class="modal-footer">
+        <view class="modal-btn confirm" bindtap="submitJoin">确认申请</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ========== 解散确认弹窗 ========== -->
+  <view wx:if="{{showDissolveModal}}" class="delete-modal" catchtap="preventClose">
+    <view class="delete-content">
+      <view class="delete-icon">⚠️</view>
+      <text class="delete-title">确认解散家庭？</text>
+      <text class="delete-desc">解散后所有成员将被移除，此操作不可撤销</text>
+      <view class="delete-btns">
+        <view class="delete-btn-cancel" bindtap="closeDissolveModal">取消</view>
+        <view class="delete-btn-confirm" bindtap="confirmDissolve">确认解散</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ========== 退出确认弹窗 ========== -->
+  <view wx:if="{{showLeaveModal}}" class="delete-modal" catchtap="preventClose">
+    <view class="delete-content">
+      <view class="delete-icon">👋</view>
+      <text class="delete-title">确认退出家庭？</text>
+      <text class="delete-desc">退出后你将无法查看家庭的共享账单</text>
+      <view class="delete-btns">
+        <view class="delete-btn-cancel" bindtap="closeLeaveModal">取消</view>
+        <view class="delete-btn-confirm" bindtap="confirmLeave">确认退出</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ========== 被拒绝提示弹窗（只弹一次，确定后清除记录） ========== -->
+  <view wx:if="{{showNotYetApprovedModal}}" class="delete-modal" catchtap="preventClose">
+    <view class="delete-content">
+      <view class="delete-icon">❌</view>
+      <text class="delete-title">申请已被拒绝</text>
+      <text class="delete-desc">对方拒绝了你的加入申请</text>
+      <view class="delete-btns" style="justify-content: center;">
+        <view class="delete-btn-confirm" style="background: #fa8c16; flex: none; padding: 24rpx 80rpx;" bindtap="closeNotYetApprovedModal">确定</view>
+      </view>
+    </view>
+  </view>
+</view>

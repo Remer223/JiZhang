@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.accountbookserver.mapper.FamilyMapper">
+
+    <insert id="insert" parameterType="org.example.accountbookserver.entity.Family" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_family (name, creator_id, created_at)
+        VALUES (#{name}, #{creatorId}, CURRENT_TIMESTAMP)
+    </insert>
+
+    <select id="selectById" resultType="org.example.accountbookserver.entity.Family">
+        SELECT * FROM t_family WHERE id = #{id}
+    </select>
+
+    <!-- 查用户所在家庭（只要有member记录就算） -->
+    <select id="selectByUserId" resultType="org.example.accountbookserver.entity.Family">
+        SELECT f.* FROM t_family f
+        INNER JOIN t_family_member fm ON f.id = fm.family_id
+        WHERE fm.user_id = #{userId}
+    </select>
+
+    <select id="selectAll" resultType="org.example.accountbookserver.entity.Family">
+        SELECT * FROM t_family ORDER BY created_at DESC
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM t_family WHERE id = #{id}
+    </delete>
+
+    <!-- 查用户是否在任何家庭中有member记录 -->
+    <select id="countMembership" resultType="int">
+        SELECT COUNT(*) FROM t_family_member WHERE user_id = #{userId}
+    </select>
+
+    <!-- 搜索家庭（模糊匹配名称，带回创建者昵称和成员数） -->
+    <select id="searchByKeyword" resultType="java.util.HashMap">
+        SELECT f.id, f.name, f.creator_id,
+               DATE_FORMAT(f.created_at, '%Y-%m-%d') AS created_at,
+               u.nickname AS creator_nickname,
+               (SELECT COUNT(*) FROM t_family_member WHERE family_id = f.id) AS member_count
+        FROM t_family f
+        LEFT JOIN t_user u ON f.creator_id = u.id
+        WHERE f.name LIKE CONCAT('%', #{keyword}, '%')
+        ORDER BY f.created_at DESC
+    </select>
+
+</mapper>

@@ -1,0 +1,47 @@
+CREATE TABLE t_user (
+      id       BIGINT AUTO_INCREMENT PRIMARY KEY,
+      phone    VARCHAR(20)  NOT NULL UNIQUE,
+      password VARCHAR(255) NOT NULL
+  );
+alter table t_user add nickname varchar(50);
+ALTER TABLE t_user ADD COLUMN avatar VARCHAR(500);
+
+
+
+ CREATE TABLE t_record (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      user_id VARCHAR(50),
+      type INT COMMENT '1=支出 2=收入',
+      amount DOUBLE,
+      category VARCHAR(50),
+      remark VARCHAR(200),
+      create_time DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+ALTER TABLE t_record ADD COLUMN family_id INT DEFAULT NULL COMMENT '关联家庭ID';
+
+
+CREATE TABLE t_family (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      name VARCHAR(100) NOT NULL COMMENT '家庭名称',
+      creator_id INT NOT NULL COMMENT '创建者ID',
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (creator_id) REFERENCES t_user(id)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
+CREATE TABLE t_family_member (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      family_id INT NOT NULL COMMENT '家庭ID',
+      user_id INT NOT NULL COMMENT '用户ID',
+      role VARCHAR(50) NOT NULL COMMENT '角色',
+      approved TINYINT(1) NOT NULL DEFAULT 0 COMMENT '0=待审批 1=已批准',
+      joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (family_id) REFERENCES t_family(id),
+      FOREIGN KEY (user_id) REFERENCES t_user(id),
+      UNIQUE KEY uk_family_user (family_id, user_id)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  ALTER TABLE t_family_member ADD COLUMN rejected TINYINT(1) NOT NULL DEFAULT 0;
+
+
+记得去后端改密码,如果数据库名不一样也要改路径

@@ -1,0 +1,417 @@
+.container {
+  background: #f5f5f5;
+  min-height: 100vh;
+  padding: 30rpx;
+}
+
+/* ========== 空状态 ========== */
+.empty-family {
+  text-align: center;
+  padding-top: 200rpx;
+}
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 30rpx;
+}
+.empty-title {
+  display: block;
+  font-size: 36rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 15rpx;
+}
+.empty-desc {
+  display: block;
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 60rpx;
+}
+
+.action-btns {
+  display: flex;
+  justify-content: center;
+  gap: 40rpx;
+}
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 240rpx;
+  height: 200rpx;
+  border-radius: 24rpx;
+  font-size: 30rpx;
+  color: white;
+  gap: 15rpx;
+}
+.action-btn.create {
+  background: linear-gradient(135deg, #07c160, #05a34e);
+}
+.action-btn.join {
+  background: linear-gradient(135deg, #1890ff, #096dd9);
+}
+.btn-icon {
+  font-size: 50rpx;
+}
+
+/* ========== 待审批状态 ========== */
+.pending-family {
+  text-align: center;
+  padding: 200rpx 60rpx 0;
+}
+.pending-icon {
+  font-size: 120rpx;
+  margin-bottom: 30rpx;
+}
+.pending-title {
+  display: block;
+  font-size: 36rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 30rpx;
+}
+.pending-desc {
+  display: block;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+.pending-tip {
+  margin-top: 40rpx;
+  padding: 20rpx 30rpx;
+  background: #fffbe6;
+  border-radius: 12rpx;
+  font-size: 26rpx;
+  color: #fa8c16;
+}
+
+/* ========== 家庭信息 ========== */
+.family-header {
+  background: white;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+.family-icon {
+  font-size: 80rpx;
+  margin-right: 25rpx;
+}
+.family-detail {
+  flex: 1;
+}
+.family-name {
+  display: block;
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+.family-role {
+  display: block;
+  font-size: 28rpx;
+  color: #666;
+}
+.family-badge {
+  display: inline-block;
+  background: #fff7e6;
+  color: #fa8c16;
+  font-size: 24rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 8rpx;
+  margin-top: 10rpx;
+}
+
+/* ========== 分区 ========== */
+.section {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+}
+.section-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 25rpx;
+}
+
+/* ========== 成员列表 ========== */
+.member-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+  gap: 20rpx;
+}
+.member-item:last-child {
+  border-bottom: none;
+}
+.member-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: #eee;
+}
+.member-info {
+  flex: 1;
+}
+.member-name {
+  display: block;
+  font-size: 30rpx;
+  color: #333;
+}
+.member-role {
+  display: block;
+  font-size: 26rpx;
+  color: #07c160;
+  margin-top: 5rpx;
+}
+.member-status .status {
+  font-size: 24rpx;
+}
+.status.approved { color: #07c160; }
+.status.pending-status { color: #fa8c16; }
+.member-item.pending {
+  background: #fffbe6;
+  margin: 0 -30rpx;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+}
+
+.approve-btns {
+  display: flex;
+  gap: 15rpx;
+}
+.approve-btn, .reject-btn {
+  font-size: 24rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 8rpx;
+}
+.approve-btn {
+  background: #07c160;
+  color: white;
+}
+.reject-btn {
+  background: #ff4d4f;
+  color: white;
+}
+
+/* ========== 操作按钮 ========== */
+.family-actions {
+  margin-top: 40rpx;
+}
+.danger-btn {
+  text-align: center;
+  padding: 30rpx;
+  border-radius: 20rpx;
+  font-size: 32rpx;
+  color: white;
+}
+.danger-btn.dissolve {
+  background: #ff4d4f;
+}
+.danger-btn.leave {
+  background: #fa8c16;
+}
+
+/* ========== 弹窗 ========== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-content {
+  background: white;
+  border-radius: 24rpx;
+  width: 85%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 30rpx 0;
+}
+.modal-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+.modal-close {
+  font-size: 36rpx;
+  color: #999;
+  padding: 10rpx;
+}
+.modal-body {
+  padding: 30rpx;
+}
+.input-group {
+  margin-bottom: 30rpx;
+}
+.input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 15rpx;
+}
+.modal-input {
+  width: 100%;
+  padding: 5rpx;
+  background: #f5f5f5;
+  border-radius: 12rpx;
+  font-size: 30rpx;
+  line-height: 44rpx;
+  box-sizing: border-box;
+}
+.modal-footer {
+  padding: 0 30rpx 30rpx;
+}
+.modal-btn {
+  padding: 24rpx;
+  border-radius: 16rpx;
+  text-align: center;
+  font-size: 32rpx;
+}
+.modal-btn.confirm {
+  background: #07c160;
+  color: white;
+}
+
+/* ========== 搜索框 ========== */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  border-radius: 16rpx;
+  padding: 10rpx 24rpx;
+  margin-bottom: 25rpx;
+}
+.search-icon {
+  font-size: 32rpx;
+  margin-right: 15rpx;
+}
+.search-input {
+  flex: 1;
+  font-size: 30rpx;
+  color: #333;
+}
+.search-hint {
+  text-align: center;
+  padding: 50rpx;
+  color: #999;
+  font-size: 28rpx;
+}
+
+/* ========== 搜索结果列表 ========== */
+.family-select-list {
+  margin-bottom: 25rpx;
+}
+.family-select-item {
+  padding: 25rpx;
+  background: #f5f5f5;
+  border-radius: 12rpx;
+  margin-bottom: 15rpx;
+  border: 2rpx solid transparent;
+}
+.family-select-item.selected {
+  background: #e6f7ed;
+  border-color: #07c160;
+}
+.fs-name {
+  display: block;
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 6rpx;
+}
+.fs-creator {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 6rpx;
+}
+.fs-meta {
+  display: flex;
+  justify-content: space-between;
+}
+.fs-count {
+  font-size: 24rpx;
+  color: #07c160;
+  background: #e6f7ed;
+  padding: 2rpx 14rpx;
+  border-radius: 8rpx;
+}
+.fs-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* ========== 删除确认弹窗（复用index样式） ========== */
+.delete-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.delete-content {
+  background: white;
+  border-radius: 24rpx;
+  padding: 50rpx 60rpx;
+  width: 70%;
+  text-align: center;
+}
+.delete-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+.delete-title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+.delete-desc {
+  display: block;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 40rpx;
+  line-height: 1.5;
+}
+.delete-btns {
+  display: flex;
+  gap: 20rpx;
+}
+.delete-btn-cancel {
+  flex: 1;
+  padding: 24rpx;
+  background: #f5f5f5;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+  color: #666;
+}
+.delete-btn-confirm {
+  flex: 1;
+  padding: 24rpx;
+  background: #ff4d4f;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+  color: white;
+}
